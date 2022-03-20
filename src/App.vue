@@ -1,21 +1,71 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import BaseModal from './components/BaseModal.vue';
+
+const dialogIsVisible = ref<boolean>(false);
+
+const showDialog = () => {
+  dialogIsVisible.value = true;
+}
+
+const hideDialog = () => {
+  dialogIsVisible.value = false;
+}
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="container">
+    <div class="block"></div>
+    <button>Animate</button>
+  </div>
+  <BaseModal @close="hideDialog" v-if="dialogIsVisible">
+    <p>This is a test dialog!</p>
+    <button @click="hideDialog">Close It!</button>
+  </BaseModal>
+  <div class="container">
+    <button @click="showDialog">Show Dialog</button>
+  </div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+}
+html {
+  font-family: sans-serif;
+}
+body {
+  margin: 0;
+}
+button {
+  font: inherit;
+  padding: 0.5rem 2rem;
+  border: 1px solid #810032;
+  border-radius: 30px;
+  background-color: #810032;
+  color: white;
+  cursor: pointer;
+}
+button:hover,
+button:active {
+  background-color: #a80b48;
+  border-color: #a80b48;
+}
+.block {
+  width: 8rem;
+  height: 8rem;
+  background-color: #290033;
+  margin-bottom: 2rem;
+}
+.container {
+  max-width: 40rem;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  border: 2px solid #ccc;
+  border-radius: 12px;
 }
 </style>
